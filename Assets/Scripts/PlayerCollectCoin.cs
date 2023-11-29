@@ -26,7 +26,7 @@ public class PlayerCollectCoin : MonoBehaviour
     void Update()
     {
         // Check the score each frame and update the button's interactable state
-        if (score >= 3)
+        if (score >= 6)
         {
             buyItemButton.interactable = true; // Enable the BuyItem button
         }
@@ -55,7 +55,7 @@ public class PlayerCollectCoin : MonoBehaviour
 
     public void UpdateScoreText()
     {
-        scoreText.text = "Score: " + score.ToString(); // Update the TextMeshPro text
+        scoreText.text = "Coins: " + score.ToString(); // Update the TextMeshPro text
         // if (score >= 3)
         // {
         //     buyItemButton.interactable = true; // Enable the BuyItem button

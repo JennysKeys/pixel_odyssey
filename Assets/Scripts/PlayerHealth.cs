@@ -18,6 +18,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private AudioSource deathAudioSource; 
     [SerializeField] private AudioSource hitTrapAudioSource; 
     [SerializeField] private AudioSource hitMonsterAudioSource; 
+    public GameObject restartUI; // Reference to the restart UI panel
 
     void Start()
     {
@@ -37,7 +38,11 @@ public class PlayerHealth : MonoBehaviour
 
     void Update()
     {
-        // Existing update logic
+            // Check if the player's Y-coordinate is less than -8
+        if (transform.position.y < -8)
+        {
+            Die();
+        }
     }
 
     public void TakeDamage(float damage)
@@ -118,6 +123,7 @@ public class PlayerHealth : MonoBehaviour
         }
         rb.bodyType = RigidbodyType2D.Static;
         anim.SetTrigger("death");
+        restartUI.SetActive(true); // Activate the restart UI
     }
 
     public void Heal(float healAmount)
@@ -187,4 +193,10 @@ public class PlayerHealth : MonoBehaviour
     {
         return isInvulnerable;
     }
+
+    public bool IsDead()
+    {
+        return health <= 0;
+    }
+
 }

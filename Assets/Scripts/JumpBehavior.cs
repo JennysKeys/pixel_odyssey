@@ -20,8 +20,8 @@ public class JumpBehavior : StateMachineBehaviour
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        // Check if the player is within the detection range.
-        if (IsPlayerInRange(animator))
+        // Check if the player is within the detection range and not too close.
+        if (IsPlayerInRange(animator) && !IsPlayerTooClose(animator))
         {
             Vector2 target = new Vector2(playerPos.position.x, animator.transform.position.y);
             animator.transform.position = Vector2.MoveTowards(animator.transform.position, target, speed * Time.deltaTime);
@@ -47,5 +47,13 @@ public class JumpBehavior : StateMachineBehaviour
     {
         float distance = Vector2.Distance(playerPos.position, animator.transform.position);
         return distance <= detectionRange;
+    }
+
+    // New method to check if the player is too close.
+    private bool IsPlayerTooClose(Animator animator)
+    {
+        float minSafeDistance = 3f; // Set this to a suitable distance
+        float distance = Vector2.Distance(playerPos.position, animator.transform.position);
+        return distance < minSafeDistance;
     }
 }
